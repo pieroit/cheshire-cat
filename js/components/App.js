@@ -3,6 +3,7 @@ var reduxConnect = require('react-redux').connect
 var Grid         = require('react-bootstrap/lib/Grid')
 var Row          = require('react-bootstrap/lib/Row')
 var Col          = require('react-bootstrap/lib/Col')
+var BaseWidget   = require('./widgets/BaseWidget').default
 
 // main component
 var App = React.createClass({
@@ -11,7 +12,7 @@ var App = React.createClass({
 
         return (
             <div>
-                Ready to get into the zone
+                <BaseWidget/>
             </div>
         )
     }
