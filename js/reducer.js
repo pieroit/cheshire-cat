@@ -16,4 +16,4 @@ var reducer = function(state, action){
     return newState
 }
 
-module.exports = reducer
+export default reducer

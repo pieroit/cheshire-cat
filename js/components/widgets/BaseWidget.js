@@ -1,7 +1,7 @@
-import React    from 'react'
-import Panel    from 'react-bootstrap/lib/Panel'
-import Row      from 'react-bootstrap/lib/Row'
-import VisibilitySensor from 'react-visibility-sensor'
+import React                     from 'react'
+import Panel                     from 'react-bootstrap/lib/Panel'
+import Row                       from 'react-bootstrap/lib/Row'
+import VisibilitySensor          from 'react-visibility-sensor'
 import {connect as reduxConnect} from 'react-redux'
 
 class BaseWidget extends React.Component {
@@ -119,21 +119,25 @@ class BaseWidget extends React.Component {
         var component = this
         console.warn('rendering', component.state)
 
-        if(component.state.isLoadingData){
+        /*if(component.state.isLoadingData){
             var chartJSX = (
                 <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
             )
-        } else {
+        } else {*/
             var chartJSX = (
                 <div>
+                    <img width="300px" src="img/cheshire-cat" />
+                    <br/><br/><br/>
                     <p>'Would you tell me, please, which way I ought to go from here?'</p>
                     <p>'That depends a good deal on where you want to get to,' said the Cat.</p>
                     <p>'I don't much care where —' said Alice.</p>
                     <p>'Then it doesn't matter which way you go,' said the Cat.</p>
+
                     {component.renderCharts()}
+
                 </div>
             )
-        }
+        /*}*/
 
         if(component.state.isVisible){
             var widgetContentJSX = (
