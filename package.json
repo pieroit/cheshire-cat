@@ -20,6 +20,7 @@
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
+    "react-jsonschema-form": "^0.46.0",
     "react-redux": "^4.4.5",
     "react-router-dom": "^4.0.0",
     "react-visibility-sensor": "^3.7.0",

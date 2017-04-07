@@ -1,8 +1,9 @@
 import React                     from 'react'
+import {connect as reduxConnect} from 'react-redux'
 import Panel                     from 'react-bootstrap/lib/Panel'
 import Row                       from 'react-bootstrap/lib/Row'
 import VisibilitySensor          from 'react-visibility-sensor'
-import {connect as reduxConnect} from 'react-redux'
+import Form                      from "react-jsonschema-form"
 
 class BaseWidget extends React.Component {
 
@@ -86,6 +87,25 @@ class BaseWidget extends React.Component {
      */
     renderControls(){
         // Do nothing
+        var schema = {
+            title: "Todo",
+            type: "object",
+            required: ["title"],
+            properties: {
+                title: {type: "string", title: "Title", default: "A new task"},
+                done: {type: "boolean", title: "Done?", default: false}
+            }
+        }
+
+        function log(event){
+            console.log(event.formData)
+        }
+
+        return (
+            <Form schema={schema}
+                onChange={log}
+            />
+        )
     }
 
     /**
