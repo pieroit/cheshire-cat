@@ -39,18 +39,6 @@ class BaseWidget extends React.Component {
     }
 
     /**
-     * Merge widget and page controls
-     */
-    mergeLocalAndGlobalControls(){
-        var widgetControls = this.state.widgetControls
-        var pageControls   = this.props.pageControls
-
-        // TODO: default merge
-
-        return {}
-    }
-
-    /**
      * fetchData
      */
     fetchData(queryOptions){
@@ -83,28 +71,51 @@ class BaseWidget extends React.Component {
     }
 
     /**
+     * local controls changed
+     */
+    onLocalControlsChange(formData){
+        console.log(formData)
+    }
+
+    /**
+     * Merge parent and local controls
+     */
+    mergeLocalAndGlobalControls(){
+        var widgetControls = this.state.widgetControls
+        var pageControls   = this.props.pageControls
+
+        // TODO: default merge
+
+        return {}
+    }
+
+    /**
      * render only controls (must return JSX)
      */
     renderControls(){
+
+        var component = this
+
         // Do nothing
         var schema = {
-            title: "Todo",
+            title: "Example form",
             type: "object",
-            required: ["title"],
             properties: {
                 title: {type: "string", title: "Title", default: "A new task"},
                 done: {type: "boolean", title: "Done?", default: false}
             }
         }
 
-        function log(event){
-            console.log(event.formData)
-        }
+        var formData = {} // TODO: this should come from dashboard state
 
         return (
             <Form schema={schema}
-                onChange={log}
-            />
+                formData={formData}
+                onChange={component.onLocalControlsChange}
+            >
+                <div></div>
+
+            </Form>
         )
     }
 
@@ -139,6 +150,14 @@ class BaseWidget extends React.Component {
         var component = this
         console.warn('rendering', component.state)
 
+
+        var children = React.Children.map(component.props.children, function(child){
+            console.log(child.type.prototype)
+            return 2
+        })
+        console.log(children)
+
+
         /*if(component.state.isLoadingData){
             var chartJSX = (
                 <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
@@ -148,10 +167,10 @@ class BaseWidget extends React.Component {
                 <div>
                     <img width="300px" src="img/cheshire-cat" />
                     <br/><br/><br/>
-                    <p>'Would you tell me, please, which way I ought to go from here?'</p>
-                    <p>'That depends a good deal on where you want to get to,' said the Cat.</p>
-                    <p>'I don't much care where —' said Alice.</p>
-                    <p>'Then it doesn't matter which way you go,' said the Cat.</p>
+                    <p>'Would you tell me, please, which way I ought to go from here?' - said Alice.</p>
+                    <p>'That depends a good deal on where you want to get to' - said the Cat.</p>
+                    <p>'I don't much care where...' - said Alice.</p>
+                    <p>'Then it doesn't matter which way you go' - said the Cat.</p>
 
                     {component.renderCharts()}
 
