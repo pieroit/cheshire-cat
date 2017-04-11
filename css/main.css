@@ -1,0 +1,27 @@
+
+/**
+ * Cheshire Cat style sheet
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Override some React-Bootstrap properties
+ */
+.panel {
+    padding: 10px;
+}

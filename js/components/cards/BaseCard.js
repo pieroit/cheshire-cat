@@ -12,7 +12,6 @@ class BaseCard extends React.Component {
         this.dashboard = document.dashboard // TODO: make this cleaner
 
         this.state = {
-            'CardControls': {},
             'isVisible'     : false,
             'isLoadingData' : false,
             'localData'     : []
@@ -39,10 +38,10 @@ class BaseCard extends React.Component {
     }
 
     /**
-     * fetchData
+     * Fetch data from the cache
      */
     fetchData(queryOptions){
-        console.log('fetch data')
+
         var component = this
         this.setState({
             'isLoadingData': true
@@ -63,7 +62,6 @@ class BaseCard extends React.Component {
      * Called when data arrives from the server
      */
     onData(response){
-        console.log('data arrived')
         this.setState({
             'isLoadingData': false,
             'localData'    : response
@@ -71,7 +69,7 @@ class BaseCard extends React.Component {
     }
 
     /**
-     * local controls changed
+     * Local controls changed
      */
     onLocalControlsChange(formData){
         console.log(formData)
@@ -90,51 +88,61 @@ class BaseCard extends React.Component {
     }
 
     /**
-     * render only controls (must return JSX)
+     * Render Card controls.
+     * Only works if this.props.formSchema contains a react-json-schema form.
+     * Must return form in JSX. When the form change, this.onLocalControlsChange() will be fired.
      */
     renderControls(){
 
         var component = this
-
-        // Do nothing
-        var schema = {
-            title: "Example form",
-            type: "object",
-            properties: {
-                title: {type: "string", title: "Title", default: "A new task"},
-                done: {type: "boolean", title: "Done?", default: false}
-            }
-        }
-
         var formData = {} // TODO: this should come from dashboard state
 
-        return (
-            <Form schema={schema}
-                formData={formData}
-                onChange={component.onLocalControlsChange}
-            >
-                <div></div>
+        if(component.props.formSchema){
+            return (
+                <Form schema={component.props.formSchema}
+                    formData={formData}
+                    onChange={component.onLocalControlsChange}
+                >
+                    <div></div>
 
-            </Form>
-        )
+                </Form>
+            )
+        }
     }
 
     /**
-     * render only charts (must return JSX)
+     * Render only charts (must return JSX)
      */
     renderCharts(){
-        // Do nothing
+        if(this.props.children){
+            // TODO: pass data down here
+            return this.props.children
+        } else {
+            // Default
+            return (
+                <div>
+                    <img width="300px" src="img/cheshire-cat" />
+                    <br/><br/><br/>
+                    <p>'Would you tell me, please, which way I ought to go from here?' - said Alice.</p>
+                    <p>'That depends a good deal on where you want to get to' - said the Cat.</p>
+                    <p>'I don't much care where...' - said Alice.</p>
+                    <p>'Then it doesn't matter which way you go' - said the Cat.</p>
+                    <hr/>
+                    <p><b>You did not put components inside this Card. Read the docs.</b></p>
+                </div>
+            )
+        }
     }
 
     /**
-     * render only actions (must return JSX)
+     * Render only actions (must return JSX)
      */
     renderActions(){
         // Do nothing
     }
 
     /**
-     * what happens when the Card is visible?
+     * What happens when the Card is visible?
      */
     toggleVisibility(visibility){
 
@@ -148,44 +156,16 @@ class BaseCard extends React.Component {
     render(){
 
         var component = this
-        //console.warn('rendering', component.state)
 
-
-        var children = React.Children.map(component.props.children, function(child){
-            console.log(child.type.prototype)
-            return 2
-        })
-        //console.log(children)
-
-
-        /*if(component.state.isLoadingData){
-            var chartJSX = (
-                <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
-            )
-        } else {*/
-            var chartJSX = (
-                <div>
-                    <img width="300px" src="img/cheshire-cat" />
-                    <br/><br/><br/>
-                    <p>'Would you tell me, please, which way I ought to go from here?' - said Alice.</p>
-                    <p>'That depends a good deal on where you want to get to' - said the Cat.</p>
-                    <p>'I don't much care where...' - said Alice.</p>
-                    <p>'Then it doesn't matter which way you go' - said the Cat.</p>
-
-                    {component.renderCharts()}
-
-                </div>
-            )
-        /*}*/
-
+        // Only render contents if the Card is visible in page.
         if(component.state.isVisible){
-            var CardContentJSX = (
+            var cardContentJSX = (
                 <div>
                     <Row>
                         {component.renderControls()}
                     </Row>
                     <Row>
-                        {chartJSX}
+                        {component.renderCharts()}
                     </Row>
                     <Row>
                         {component.renderActions()}
@@ -193,7 +173,8 @@ class BaseCard extends React.Component {
                 </div>
             )
         } else {
-            var CardContentJSX = (
+            // Visibility sensor is here!
+            var cardContentJSX = (
                 <div>
                     <VisibilitySensor active={true} onChange={component.toggleVisibility.bind(component)} delayedCall={false} />
                     <div>not visible</div>
@@ -201,9 +182,11 @@ class BaseCard extends React.Component {
             )
         }
 
+        // Card contents are shown in a collapsible Panel
+        var header = this.props.header? this.props.header : 'Card'
         return (
-            <Panel collapsible defaultExpanded header="Panel">
-                {CardContentJSX}
+            <Panel collapsible defaultExpanded header={header}>
+                {cardContentJSX}
             </Panel>
         )
     }
