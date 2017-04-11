@@ -177,7 +177,7 @@ class BaseCard extends React.Component {
             var cardContentJSX = (
                 <div>
                     <VisibilitySensor active={true} onChange={component.toggleVisibility.bind(component)} delayedCall={false} />
-                    <div>not visible</div>
+                    <div>Down the rabbit hole...</div>
                 </div>
             )
         }

@@ -20,7 +20,7 @@ var launchApp = function() {
         <Provider store={ store } >
             <CheshireCat>
                 <Door exact path="/">
-                    <BaseCard/>
+                    <BaseCard header="Welcome by the Cheshire Cat" />
                 </Door>
                 <Door path="/bar">
                     <h1>Yeah</h1>
