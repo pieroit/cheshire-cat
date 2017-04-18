@@ -10,6 +10,7 @@
   "author": "pieroit",
   "license": "GPL",
   "dependencies": {
+    "axios": "^0.16.1",
     "bootstrap": "^3.3.7",
     "d3": "^3.5.17",
     "deepcopy": "^0.6.3",
