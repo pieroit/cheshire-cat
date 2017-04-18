@@ -6,7 +6,7 @@ import reduxReducer               from './reducer'
 import CheshireCat                from './components/CheshireCat'
 import Door                       from './components/Door'
 import BaseCard                   from './components/cards/BaseCard'
-import { VictoryBar, VictoryPie, VictoryLine } from 'victory'
+import { VictoryChart, VictoryBar, VictoryPie, VictoryLine, VictoryCandlestick } from 'victory'
 
 import { HashRouter as Router, Route, Link, hashHistory, browserHistory }  from 'react-router-dom'
 
@@ -55,7 +55,18 @@ var launchApp = function() {
                     </Door>
                 </Door>
                 <Door path="/pie">
-                    <VictoryPie/>
+                <VictoryPie
+                    data={[
+                        {val:2,lab:"down"},
+                        {val:1,lab:"dunno"},
+                        {val:5,lab:"happy"}
+                    ]}
+                    x="lab"
+                    y={ (d)=> d.val }
+                    colorScale="qualitative"
+                    startAngle={-90}
+                    endAngle={90}
+                />
                 </Door>
             </CheshireCat>
         </Provider>,
