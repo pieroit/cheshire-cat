@@ -2,7 +2,7 @@ import React                      from 'react'
 import ReactDOM                   from 'react-dom'
 import CheshireCat                from './components/CheshireCat'
 import Door                       from './components/Door'
-import BaseCard                   from './components/cards/BaseCard'
+import BaseViz                    from './components/viz/BaseViz'
 import { VictoryChart, VictoryBar, VictoryPie, VictoryLine, VictoryCandlestick } from 'victory'
 
 import { HashRouter as Router, Route, Link, hashHistory, browserHistory }  from 'react-router-dom'
@@ -12,12 +12,12 @@ var launchApp = function() {
     ReactDOM.render(
         <CheshireCat>
             <Door exact path="/">
-                <BaseCard header="Welcome by the Cheshire Cat" />
+                <BaseViz header="Welcome by the Cheshire Cat" />
             </Door>
             <Door path="/bar">
                 <h1>Yeah</h1>
                 <Door path="/bar/a">
-                    <BaseCard
+                    <BaseViz
                         formSchema={{
                             title: "Alice is lost",
                             type: "object",
@@ -29,7 +29,7 @@ var launchApp = function() {
                     >
                         <VictoryLine/>
                         <VictoryBar/>
-                        <BaseCard
+                        <BaseViz
                             formSchema={{
                                 title: "Ouch",
                                 type: "object",
@@ -39,8 +39,8 @@ var launchApp = function() {
                             }}
                         >
                             Here is a clock
-                        </BaseCard>
-                    </BaseCard>
+                        </BaseViz>
+                    </BaseViz>
                 </Door>
                 <Door path="/bar/b">
                     <VictoryPie/>

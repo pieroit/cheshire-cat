@@ -25,10 +25,16 @@
                 uiSchema={{}}
             }>
             <Pie
-                mergeFilters={function(){
+                mergeFilters={function(filtersArray){
                     // here you decide how to merge the filters
                 }}
-            >
+                composeRequest={function(filters){
+                    // here you compose an axios request
+                }}
+                onData={function(response){
+                    // here you prep data
+                }}
+            />
         </Door>
 
         <Door path="/b">

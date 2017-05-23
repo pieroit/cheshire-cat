@@ -5,7 +5,7 @@ import Row                       from 'react-bootstrap/lib/Row'
 import VisibilitySensor          from 'react-visibility-sensor'
 import Form                      from "react-jsonschema-form"
 
-class BaseCard extends React.Component {
+class BaseViz extends React.Component {
 
     constructor(props){
         super(props)
@@ -18,8 +18,8 @@ class BaseCard extends React.Component {
         }
     }
 
-    /*updateFromCardControls(formState){
-        console.log('updating Card, receiving form state:', formState)
+    /*updateFromVizControls(formState){
+        console.log('updating Viz, receiving form state:', formState)
     }*/
 
     /**
@@ -79,7 +79,7 @@ class BaseCard extends React.Component {
      * Merge parent and local controls
      */
     mergeLocalAndGlobalControls(){
-        var CardControls = this.state.CardControls
+        var vizControls = this.state.vizControls
         var pageControls   = this.props.pageControls
 
         // TODO: default merge
@@ -88,7 +88,7 @@ class BaseCard extends React.Component {
     }
 
     /**
-     * Render Card controls.
+     * Render Viz controls.
      * Only works if this.props.formSchema contains a react-json-schema form.
      * Must return form in JSX. When the form change, this.onLocalControlsChange() will be fired.
      */
@@ -128,7 +128,7 @@ class BaseCard extends React.Component {
                     <p>'I don't much care where...' - said Alice.</p>
                     <p>'Then it doesn't matter which way you go' - said the Cat.</p>
                     <hr/>
-                    <p><b>You did not put components inside this Card. Read the docs.</b></p>
+                    <p><b>You did not put components inside this Viz. Read the docs.</b></p>
                 </div>
             )
         }
@@ -142,7 +142,7 @@ class BaseCard extends React.Component {
     }
 
     /**
-     * What happens when the Card is visible?
+     * What happens when the Viz is visible?
      */
     toggleVisibility(visibility){
 
@@ -157,9 +157,9 @@ class BaseCard extends React.Component {
 
         var component = this
 
-        // Only render contents if the Card is visible in page.
+        // Only render contents if the Viz is visible in page.
         if(component.state.isVisible){
-            var cardContentJSX = (
+            var vizContentJSX = (
                 <div>
                     <Row>
                         {component.renderControls()}
@@ -174,7 +174,7 @@ class BaseCard extends React.Component {
             )
         } else {
             // Visibility sensor is here!
-            var cardContentJSX = (
+            var vizContentJSX = (
                 <div>
                     <VisibilitySensor active={true} onChange={component.toggleVisibility.bind(component)} delayedCall={false} />
                     <div>Down the rabbit hole...</div>
@@ -182,11 +182,11 @@ class BaseCard extends React.Component {
             )
         }
 
-        // Card contents are shown in a collapsible Panel
-        var header = this.props.header? this.props.header : 'Card'
+        // Viz contents are shown in a collapsible Panel
+        var header = this.props.header? this.props.header : 'Viz'
         return (
             <Panel collapsible defaultExpanded header={header}>
-                {cardContentJSX}
+                {vizContentJSX}
             </Panel>
         )
     }
@@ -196,5 +196,5 @@ class BaseCard extends React.Component {
     }
 }
 
-var mapStateToProps = BaseCard.reduxMapStateToProps
-export default reduxConnect(mapStateToProps)(BaseCard)
+var mapStateToProps = BaseViz.reduxMapStateToProps
+export default reduxConnect(mapStateToProps)(BaseViz)
