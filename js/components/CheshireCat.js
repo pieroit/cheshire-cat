@@ -42,10 +42,4 @@ var CheshireCat = React.createClass({
 
 })
 
-// redux mapping
-/*var mapStateToProps = function(state){
-    return {}
-}*/
-
-//module.exports = reduxConnect(mapStateToProps)(CheshireCat)
 module.exports = CheshireCat
