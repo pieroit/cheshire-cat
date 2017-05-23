@@ -24,17 +24,25 @@
                 formData={{}}
                 uiSchema={{}}
             }>
-            <Pie
+            <NetworkViz
+                endpoints={['http://some.org', 'https://yeah.yeah']}
                 mergeFilters={function(filtersArray){
                     // here you decide how to merge the filters
                 }}
-                composeRequest={function(filters){
+                composeRequest={function(endpoints, filters){
                     // here you compose an axios request
                 }}
                 onData={function(response){
                     // here you prep data
-                }}
-            />
+                }}>
+                <VictoryPie // data will be passed as props from DataSource
+                    x="lab"
+                    y={ (d)=> d.val }
+                    colorScale="qualitative"
+                    startAngle={-90}
+                    endAngle={90}
+                />
+            </NetworkViz>
         </Door>
 
         <Door path="/b">
