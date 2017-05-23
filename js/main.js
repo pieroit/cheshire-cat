@@ -11,54 +11,54 @@ var launchApp = function() {
 
     ReactDOM.render(
         <CheshireCat>
-            <Door exact path="/">
-                <BaseViz header="Welcome by the Cheshire Cat" />
+            <Door
+                exact
+                path="/"
+                header="Welcome by the Cheshire Cat">
             </Door>
             <Door path="/bar">
                 <h1>Yeah</h1>
-                <Door path="/bar/a">
-                    <BaseViz
-                        formSchema={{
+                <Door
+                    path="/bar/a"
+                    form={{
+                        schema: {
                             title: "Alice is lost",
                             type: "object",
                             properties: {
                                 title: {type: "string", title: "Title", default: "A new task"},
                                 done: {type: "boolean", title: "Done?", default: false}
                             }
-                        }}
-                    >
-                        <VictoryLine/>
-                        <VictoryBar/>
-                        <BaseViz
-                            formSchema={{
-                                title: "Ouch",
-                                type: "object",
-                                properties: {
-                                    date: {type: "string", format: "date", title: "Today?"}
-                                }
-                            }}
-                        >
-                            Here is a clock
-                        </BaseViz>
-                    </BaseViz>
+                        }
+                    }}>
+
+                    <VictoryLine/>
+                    <VictoryBar/>
                 </Door>
-                <Door path="/bar/b">
+                <Door
+                    path="/bar/b"
+                    formSchema={{
+                        title: "Ouch",
+                        type: "object",
+                        properties: {
+                            date: {type: "string", format: "date", title: "Today?"}
+                        }
+                    }}>
                     <VictoryPie/>
                 </Door>
             </Door>
             <Door path="/pie">
-            <VictoryPie
-                data={[
-                    {val:2,lab:"down"},
-                    {val:1,lab:"dunno"},
-                    {val:5,lab:"happy"}
-                ]}
-                x="lab"
-                y={ (d)=> d.val }
-                colorScale="qualitative"
-                startAngle={-90}
-                endAngle={90}
-            />
+                <VictoryPie
+                    data={[
+                        {val:2,lab:"down"},
+                        {val:1,lab:"dunno"},
+                        {val:5,lab:"happy"}
+                    ]}
+                    x="lab"
+                    y={ (d)=> d.val }
+                    colorScale="qualitative"
+                    startAngle={-90}
+                    endAngle={90}
+                />
             </Door>
         </CheshireCat>,
         document.getElementById('dashboard')
