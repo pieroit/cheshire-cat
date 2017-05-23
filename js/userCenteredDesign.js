@@ -2,6 +2,43 @@
  * user should be able to compose dashboard elements without having to do the plumbing to make them communicate
  */
 
+
+/**
+ * Form as prop of Door but as a unified object
+ */
+<CheshireCat>
+    <Door
+        path="/"
+        form={
+            formSchema={{}}
+            formData={{}}
+            uiSchema={{}}
+        }>
+
+        <Clock/>
+
+        <Door
+            path="/a"
+            form={
+                formSchema={{}}
+                formData={{}}
+                uiSchema={{}}
+            }>
+            <Pie
+                mergeFilters={function(){
+                    // here you decide how to merge the filters
+                }}
+            >
+        </Door>
+
+        <Door path="/b">
+            <Map/>
+        </Door>
+
+    </Door>
+</CheshireCat>
+
+
 <CheshireCat
     defaultEndpoint='http://something.org'
     user='user'
