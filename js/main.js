@@ -36,11 +36,13 @@ var launchApp = function() {
                 </Door>
                 <Door
                     path="/bar/b"
-                    formSchema={{
-                        title: "Ouch",
-                        type: "object",
-                        properties: {
-                            date: {type: "string", format: "date", title: "Today?"}
+                    form={{
+                        schema: {
+                            title: "Ouch",
+                            type: "object",
+                            properties: {
+                                date: {type: "string", format: "date", title: "Today?"}
+                            }
                         }
                     }}>
                     <VictoryPie/>
