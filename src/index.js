@@ -5,8 +5,11 @@ import './index.css';
 import { VictoryBar, VictoryPie } from 'victory'
 
 import CheshireCat from './components/CheshireCat';
-import Widget from './components/Widget'
+import Card from './components/Card'
+import Filters from './components/Filters'
 import Filter from './components/Filter'
+import LookingGlass from './components/LookingGlass'
+import DataSource from './components/DataSource'
 
 import * as serviceWorker from './serviceWorker';
 
@@ -19,31 +22,33 @@ class App extends React.Component {
         let allCitta   = ["Roma", "Rieti", "Viterbo", "Palermo", "Catania", "Campobasso" ].map( d => { return {label:d, value:d} } )
         let allSesso   = ["M", "F"].map( d => { return {label:d, value:d} } )
 
+        let prepareDataForViz = function(d){
+            console.log(d)
+            return d
+        }
+
         return (
             <CheshireCat>
-                <Widget>
-                    <Filter variable="Regione" options={allRegione} isMulti />
-                    <Filter variable="Sesso" options={allSesso} />
-                    {/*<Filters>
-                        <Filter variable="Regione" values={allRegione} />
-                        <Filter variable="Citta" values={allCitta} parent="Regione" default={"Turin"} />
-                        <Filter variable="Sesso"  values={allSesso} chooseOnlyOne default={"F"} />
+                <Card>
+                    
+                    <Filters>
+                        <Filter variable="Regione" options={allRegione} />
+                        <Filter variable="Citta" options={allCitta} parent="Regione" default={"Turin"} />
+                        <Filter variable="Sesso"  options={allSesso} isMulti default={"F"} />
                     </Filters>
 
-                    <DataSources>
-                        <DataSource url="https://asdsdd.it" method="GET" />
-                        <DataSource url="https://robotrobot.com" method="POST" />
-                    </DataSources>
+                    <DataSource
+                        url={"https://api.myjson.com/bins/1d31ja"}
+                        method="GET"
+                    />
 
-                    <Viz>
-                        <VictoryBar x="Città" y="Sesso" />
-                        <VictoryPie x="Città" y="Abitanti" />
-                    </Viz>*/}
-                    
-                    <VictoryBar x="city" y="people" />
-                    <VictoryPie x="city" y="people" />
+                    <LookingGlass dataPrep={prepareDataForViz}>
+                        <VictoryBar x="city" y="people" />
+                        <VictoryPie x="city" y="people" />
+                        <VictoryPie x="c" y="a" />
+                    </LookingGlass>
 
-                </Widget>
+                </Card>
             </CheshireCat>
         )
     }
