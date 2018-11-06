@@ -7,6 +7,14 @@ class LookingGlass extends React.Component {
     render() {
         let component = this
 
+        // if there is no data, show spinner
+        if(!component.props.data){
+            return (
+                <div>LOADING ...</div>
+            )
+        }
+
+
         let children = React.Children.map( this.props.children, child => {
             
             //console.log(child.props, component.props)

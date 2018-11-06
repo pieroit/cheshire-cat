@@ -22,6 +22,16 @@ class App extends React.Component {
         let allCitta   = ["Roma", "Rieti", "Viterbo", "Palermo", "Catania", "Campobasso" ].map( d => { return {label:d, value:d} } )
         let allSesso   = ["M", "F"].map( d => { return {label:d, value:d} } )
 
+        let prepareRequest = function(request){
+            console.log('PAYLOAD PREP')
+            return request
+        }
+
+        let prepareResponse = function(response){
+            console.log('RESPONSE PREP')
+            return response
+        }
+
         let prepareDataForViz = function(d){
             console.log(d)
             return d
@@ -40,11 +50,13 @@ class App extends React.Component {
                     <DataSource
                         url={"https://api.myjson.com/bins/1d31ja"}
                         method="GET"
+                        requestPrep={prepareRequest}
+                        responsePrep={prepareResponse}
+                        /* transformData from react-request? */
                     />
 
                     <LookingGlass dataPrep={prepareDataForViz}>
-                        <VictoryBar x="city" y="people" />
-                        <VictoryPie x="city" y="people" />
+                        <VictoryBar x="c" y="a" />
                         <VictoryPie x="c" y="a" />
                     </LookingGlass>
 

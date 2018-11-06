@@ -18,30 +18,11 @@ class Card extends React.Component {
 
     // Executed when data arrives, to transofrm data before passing them to sub-components
     onData = (res) => {
-        if(res.data) {
-            console.log('DATA ARRIVED', res)
-
+        if(res && res.data) {
             this.setState({
-                //'data': res.data
-                'data': [
-                    {
-                        city: "Rome",
-                        people: 3000000
-                    },
-                    {
-                        city: "Milan",
-                        people: 1000000
-                    },
-                    {
-                        city: "Turin",
-                        people: 500000
-                    }
-                ]
+                'data': res.data
             })
         }
-
-        // rect-requests
-        return null
     }
 
     render() {
@@ -60,7 +41,7 @@ class Card extends React.Component {
             }
 
             if(child.type.name === 'DataSource'){
-                augmentedProps.dataArrived = component.onData
+                augmentedProps.notifyCardThatDataArrived = component.onData
             }
 
             if(child.type.name === 'LookingGlass'){

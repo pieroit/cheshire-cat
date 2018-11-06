@@ -5,16 +5,23 @@ import { Fetch } from 'react-request'
 // Note: this is a PureComponent
 class DataSource extends React.PureComponent {
 
+    onResponse = (res) => {
+
+        // let user modify response data
+        res = this.props.responsePrep(res)
+
+        // Card receives data
+        this.props.notifyCardThatDataArrived(res)
+        
+        // react-request wants the component to render something
+        return null
+    }
+
     render() {
 
-        let component = this
-        
         return (
             <Fetch {...this.props}>
-                {(res) => {
-                    component.props.dataArrived(res)
-                    return null
-                }}
+                {this.onResponse}
             </Fetch>
         )
     }
