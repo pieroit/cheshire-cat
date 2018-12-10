@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-request": "^3.1.2",

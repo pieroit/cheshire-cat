@@ -8,20 +8,23 @@ class LookingGlass extends React.Component {
         let component = this
 
         // if there is no data, show spinner
-        if(!component.props.data){
+        if(component.props.data.length == 0){
             return (
                 <div>LOADING ...</div>
             )
         }
 
+        // prepare data for viz
+        let dataForViz = this.props.data
+        if(this.props.dataPrep) {
+            dataForViz = this.props.dataPrep( this.props.data )
+        }
 
         let children = React.Children.map( this.props.children, child => {
             
-            //console.log(child.props, component.props)
-            
             return (
                 // Pass down props, the most important one being 'data'
-                <child.type {...child.props} data={component.props.data} />
+                <child.type {...child.props} data={dataForViz} />
             )
         })
 

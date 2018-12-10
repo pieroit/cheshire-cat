@@ -1,9 +1,24 @@
 
 import React from 'react'
-import Select from 'react-select'
+import _ from 'lodash'
 
 
 class Filters extends React.Component {
+
+    /*state = {
+        filters: {}
+    }*/
+
+    // let's keep it out of React for now
+    filtersState = {}
+
+    filterChanged = (variableName, value) => {
+        //console.log('FILTERS CHANGED', variableName, value)
+
+        this.filtersState[variableName] = value
+
+        this.props.notifyCardThatfiltersChanged(this.filtersState)
+    }
 
     render() {
 
@@ -13,7 +28,7 @@ class Filters extends React.Component {
             }
 
             return (
-                <child.type {...child.props} />
+                <child.type {...child.props} notifyFilterChanged={this.filterChanged} />
             )
         })
 

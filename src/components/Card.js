@@ -1,5 +1,6 @@
 
 import React from 'react'
+import utils from './../utils'
 
 
 class Card extends React.Component {
@@ -10,7 +11,7 @@ class Card extends React.Component {
     }
 
     onFiltersChange = (filtersStatus) => {
-        console.warn('FILTER CHANGE')
+        console.warn('CARD FILTER CHANGE', filtersStatus)
         this.setState({
             'filters': filtersStatus
         })
@@ -18,9 +19,10 @@ class Card extends React.Component {
 
     // Executed when data arrives, to transofrm data before passing them to sub-components
     onData = (res) => {
-        if(res && res.data) {
+        console.warn('CARD HAS NEW DATA', res)
+        if(res) {
             this.setState({
-                'data': res.data
+                'data': res
             })
         }
     }
@@ -36,7 +38,7 @@ class Card extends React.Component {
             let augmentedProps = Object.assign({}, child.props)
             
             if(child.type.name === 'Filters'){
-                augmentedProps.filtersChanged = component.onFiltersChange
+                augmentedProps.notifyCardThatfiltersChanged = component.onFiltersChange
                 augmentedProps.filtersStatus  = component.state.filters
             }
 
@@ -54,7 +56,8 @@ class Card extends React.Component {
         } )
 
         return (
-            <div className="cheshire-widget">
+            <div className="cheshire-card">
+                {utils.jsonPrettyPrint(this.state.filters)}
                 {children}
             </div>
         )
